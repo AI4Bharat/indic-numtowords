@@ -15,6 +15,20 @@ from indic_numtowords.tel.cardinal import convert as te_convert
 from indic_numtowords.kan.cardinal import convert as kn_convert
 from indic_numtowords.urd.cardinal import convert as ur_convert
 
+from indic_numtowords.asm.data.user_variations import variations as as_variations
+from indic_numtowords.ben.data.user_variations import variations as bn_variations
+from indic_numtowords.eng.data.user_variations import variations as en_variations
+from indic_numtowords.guj.data.user_variations import variations as gu_variations
+from indic_numtowords.hin.data.user_variations import variations as hi_variations
+from indic_numtowords.mal.data.user_variations import variations as ml_variations
+from indic_numtowords.mar.data.user_variations import variations as mr_variations
+from indic_numtowords.ori.data.user_variations import variations as or_variations
+from indic_numtowords.pun.data.user_variations import variations as pa_variations
+from indic_numtowords.tam.data.user_variations import variations as ta_variations
+from indic_numtowords.tel.data.user_variations import variations as te_variations
+from indic_numtowords.kan.data.user_variations import variations as kn_variations
+from indic_numtowords.urd.data.user_variations import variations as ur_variations
+
 supported_langs = ('as', 'bn', 'en', 'gu', 'hi', 'ml', 'mr', 'or', 'pa', 'ta', 'te', 'kn', 'ur')
 lang_func_dict = {
     'as': as_convert,
@@ -46,19 +60,20 @@ def num2words(num, lang = 'en', variations = False):
 
 
 user_variation_file_map = {
-    'as' : r'indic_numtowords/asm/data/user_variations.tsv',
-    'bn' : r'indic_numtowords/ben/data/user_variations.tsv',
-    'en' : r'indic_numtowords/eng/data/user_variations.tsv',
-    'gu' : r'indic_numtowords/guj/data/user_variations.tsv',
-    'hi' : r'indic_numtowords/hin/data/user_variations.tsv',
-    'ml' : r'indic_numtowords/mal/data/user_variations.tsv',
-    'mr' : r'indic_numtowords/mar/data/user_variations.tsv',
-    'or' : r'indic_numtowords/ori/data/user_variations.tsv',
-    'pa' : r'indic_numtowords/pun/data/user_variations.tsv',
-    'ta' : r'indic_numtowords/tam/data/user_variations.tsv',
-    'te' : r'indic_numtowords/tel/data/user_variations.tsv',
-    'kn' : r'indic_numtowords/kan/data/user_variations.tsv',
-    'ur' : r'indic_numtowords/urd/data/user_variations.tsv'
+    'as' : as_variations,
+    'bn' : bn_variations,
+    'en' : en_variations,
+    'gu' : gu_variations,
+    'hi' : hi_variations,
+    'ml' : ml_variations,
+    'mr' : mr_variations,
+    'or' : or_variations,
+    'pa' : pa_variations,
+    'ta' : ta_variations,
+    'te' : te_variations,
+    'kn' : kn_variations,
+    'ur' : ur_variations
+
 }
 
 def add_variation(num, word, lang):
@@ -86,13 +101,10 @@ def add_variation(num, word, lang):
 
 
 def get_variations(num, lang):
-    user_variation_file = user_variation_file_map[lang]
-    user_variation_dict = dict()
-    with open(user_variation_file, 'r') as f:
-        reader = csv.reader(f, delimiter='\t')
-        for row in reader:
-            user_variation_dict[row[0]] = list(row[1:])
-    if num in user_variation_dict:
-        return set(user_variation_dict[num])
+
+    user_variation_dict = user_variation_file_map[lang]
+    
+    if int(num) in user_variation_dict:
+        return set(user_variation_dict[int(num)])
     else:
         return set()
