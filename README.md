@@ -28,7 +28,7 @@ words = num2words(150, lang='hi', variations=True)
 | as           | Assamese - অসমীয়া |
 | bn           | Bangla - বাংল         |
 | en           | English                   |
-| gu           | Gujarati - ગુજરાત   |
+| gu           | Gujarati - ગુજરાતી   |
 | hi           | Hindi - हिंद          |
 | kn           | Kannada - ಕನ್ನ        |
 | ml           | Malayalam - മലയാള    |
