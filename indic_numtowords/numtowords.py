@@ -31,18 +31,30 @@ from indic_numtowords.urd.data.user_variations import variations as ur_variation
 
 from indic_numtowords.doi.data.nums import DIRECT_DICT as doi_direct_dict
 from indic_numtowords.sat.data.nums import DIRECT_DICT as sat_direct_dict
+from indic_numtowords.mai.data.nums import DIRECT_DICT as mai_direct_dict
+from indic_numtowords.sd.data.nums import DIRECT_DICT as sd_direct_dict
+from indic_numtowords.brx.data.nums import DIRECT_DICT as brx_direct_dict
 
 from indic_numtowords.doi.data.nums import EXCEPTIONS_DICT as doi_exceptions_dict
 from indic_numtowords.sat.data.nums import EXCEPTIONS_DICT as sat_exceptions_dict
+from indic_numtowords.mai.data.nums import EXCEPTIONS_DICT as mai_exceptions_dict
+from indic_numtowords.sd.data.nums import EXCEPTIONS_DICT as sd_exceptions_dict
+from indic_numtowords.brx.data.nums import EXCEPTIONS_DICT as brx_exceptions_dict
 
 from indic_numtowords.doi.utils import split_number as doi_split_number
 from indic_numtowords.sat.utils import split_number as sat_split_number
+from indic_numtowords.mai.utils import split_number as mai_split_number
+from indic_numtowords.sd.utils import split_number as sd_split_number
+from indic_numtowords.brx.utils import split_number as brx_split_number
 
 from indic_numtowords.doi.cardinal import process_text as doi_process_text
 from indic_numtowords.sat.cardinal import process_text as sat_process_text
+from indic_numtowords.mai.cardinal import process_text as mai_process_text
+from indic_numtowords.sd.cardinal import process_text as sd_process_text
+from indic_numtowords.brx.cardinal import process_text as brx_process_text
 
 supported_langs = ('as', 'bn', 'en', 'gu', 'hi', 'ml', 'mr', 'or', 'pa', 'ta', 'te', 'kn', 'ur')
-extended_supported_langs = ('doi', 'sat')
+extended_supported_langs = ('doi', 'sat', 'mai', 'sd', 'brx')
 
 lang_func_dict = {
     'as': as_convert,
@@ -78,22 +90,34 @@ user_variation_file_map = {
 
 direct_dict_mapping = {
     'doi': doi_direct_dict,
-    'sat': sat_direct_dict
+    'sat': sat_direct_dict,
+    'mai': mai_direct_dict,
+    'sd': sd_direct_dict,
+    'brx': brx_direct_dict
 }
 
 exceptions_dict_mapping = {
     'doi': doi_exceptions_dict,
-    'sat': sat_exceptions_dict
+    'sat': sat_exceptions_dict,
+    'mai': mai_exceptions_dict,
+    'sd': sd_exceptions_dict,
+    'brx': brx_exceptions_dict
 }
 
 split_number_mapping = {
     'doi': doi_split_number,
-    'sat': sat_split_number
+    'sat': sat_split_number,
+    'mai': mai_split_number,
+    'sd': sd_split_number,
+    'brx': brx_split_number
 }
 
 process_text_mapping = {
     'doi': doi_process_text,
-    'sat': sat_process_text
+    'sat': sat_process_text,
+    'mai': mai_process_text,
+    'sd': sd_process_text,
+    'brx': brx_process_text
 }
 
 def num2words(num, lang = 'en', variations = False, split=False, script=False):
@@ -136,7 +160,11 @@ def num2words_extended(number: int | str, lang: str, variations: bool = False, s
 
     number_str = str(number).lstrip('0') or '0'
 
-    extended = len(number_str) > (19 if script else 9)
+    if lang in ('sat', 'brx'):
+        extended = len(number_str) > 9
+    else:
+        extended = len(number_str) > (19 if script else 9)
+    
     if extended or split:
         return " ".join(direct_dict_mapping[lang][digit][0] for digit in (number if split else number_str))
 
@@ -184,3 +212,6 @@ def get_variations(num, lang):
     else:
         return set()
 
+#change
+if __name__ == "__main__":
+    print(num2words('12', lang='brx', variations=True, split=False))
