@@ -211,7 +211,3 @@ def get_variations(num, lang):
         return set(user_variation_dict[int(num)])
     else:
         return set()
-
-#change
-if __name__ == "__main__":
-    print(num2words('12', lang='brx', variations=True, split=False))
