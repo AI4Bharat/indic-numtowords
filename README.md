@@ -28,7 +28,6 @@ words = num2words(38, lang='ta', variations=False)
 ```ssh
 words = num2words(150, lang='hi', variations=True)
 #output: ['एक सौ पचास', 'डेढ़ सौ'] 
-
 ```
 ## Parameters
 The `num2words` function accepts the following parameters:
