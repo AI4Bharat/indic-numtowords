@@ -160,17 +160,17 @@ process_text_mapping = {
     'sa': sa_process_text
 }
 
-def num2words(num, lang = 'en', variations = False, split=False, script=False):
+def num2words(number, lang = 'en', variations = False, split=False, script=False):
     if lang in extended_supported_langs:
-        return num2words_extended(num, lang=lang, variations=variations, split=split, script=script)
+        return num2words_extended(number, lang=lang, variations=variations, split=split, script=script)
 
     if lang not in supported_langs:
         raise ValueError(f"Language not supported. Please check the language code.")
     
-    results = lang_func_dict[lang](num)
+    results = lang_func_dict[lang](number)
     if variations == False:
         return results[0]
-    variations = list(set(get_variations(num, lang)))
+    variations = list(set(get_variations(number, lang)))
     results.extend(variations)
     results = [re.sub(r"[\u200c\u200b]", "", line) for line in results]
     return results
