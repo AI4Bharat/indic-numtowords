@@ -27,14 +27,23 @@ words = num2words(150, lang='hi', variations=True)
 | ------------ | ------------------------- |
 | as           | Assamese - অসমীয়া |
 | bn           | Bangla - বাংল         |
+| brx          | Bodo - বাংল         |
+| doi          | Dogri - বাংল         |
 | en           | English                   |
 | gu           | Gujarati - ગુજરાત   |
 | hi           | Hindi - हिंद          |
 | kn           | Kannada - ಕನ್ನ        |
+| kas          | Kannada - ಕನ್ನ        |
+| kok          | Kannada - ಕನ್ನ        |
+| mai          | Kannada - ಕನ್ನ        |
 | ml           | Malayalam - മലയാള    |
 | mr           | Marathi - मराठी      |
+| mni          | Marathi - मराठी      |
+| nep          | Marathi - मराठी      |
 | or           | Oriya - ଓଡ଼ି          |
 | pa           | Panjabi - ਪੰਜਾਬ      |
+| san          | Sanskrit - ਪੰਜਾਬ      |
+| sin          | Sindhi - ਪੰਜਾਬ      |
 | ta           | Tamil - தமிழ          |
 | te           | Telugu - తెలుగ       |
 | ur           | Urdu - اُردُ         |
