@@ -25,28 +25,54 @@ words = num2words(150, lang='hi', variations=True)
 
 | ISO 639 Code | Language                  |
 | ------------ | ------------------------- |
-| as           | Assamese - অসমীয়া |
-| bn           | Bangla - বাংল         |
-| brx          | Bodo - বাংল         |
-| doi          | Dogri - বাংল         |
+| as           | Assamese                  |
+| bn           | Bangla                    |
+| brx          | Bodo                      |
+| doi          | Dogri                     |
 | en           | English                   |
-| gu           | Gujarati - ગુજરાત   |
-| hi           | Hindi - हिंद          |
-| kn           | Kannada - ಕನ್ನ        |
-| kas          | Kannada - ಕನ್ನ        |
-| kok          | Kannada - ಕನ್ನ        |
-| mai          | Kannada - ಕನ್ನ        |
-| ml           | Malayalam - മലയാള    |
-| mr           | Marathi - मराठी      |
-| mni          | Marathi - मराठी      |
-| nep          | Marathi - मराठी      |
-| or           | Oriya - ଓଡ଼ି          |
-| pa           | Panjabi - ਪੰਜਾਬ      |
-| san          | Sanskrit - ਪੰਜਾਬ      |
-| sin          | Sindhi - ਪੰਜਾਬ      |
-| ta           | Tamil - தமிழ          |
-| te           | Telugu - తెలుగ       |
-| ur           | Urdu - اُردُ         |
+| gu           | Gujarati                  |
+| hi           | Hindi                     |
+| kn           | Kannada                   |
+| ks           | Kashmiri                  |
+| kok          | Konkani                   |
+| mai          | Maithili                  |
+| ml           | Malayalam                 |
+| mr           | Marathi                   |
+| mni          | Manipuri                  |
+| ne           | Nepali                    |
+| or           | Odia                      |
+| pa           | Panjabi                   |
+| sa           | Sanskrit                  |
+| sd           | Sindhi                    |
+| ta           | Tamil                     |
+| te           | Telugu                    |
+| ur           | Urdu                      |
+
+
+iso_codes = {
+    'Assamese': 'as',
+    'Bengali': 'bn',
+    'Bodo': 'brx',
+    'Dogri': 'doi',
+    'Gujarati': 'gu',
+    'Hindi': 'hi',
+    'Kannada': 'kn',
+    'Kashmiri': 'ks',
+    'Konkani': 'kok',
+    'Maithili': 'mai', 
+    'Malayalam': 'ml',
+    'Manipuri': 'mni',
+    'Marathi': 'mr',
+    'Nepali': 'ne',
+    'Odia': 'or',
+    'Punjabi': 'pa',
+    'Sanskrit': 'sa',
+    'Santali': 'sat', 
+    'Sindhi': 'sd',
+    'Tamil': 'ta',
+    'Telugu': 'te',
+    'Urdu': 'ur'
+}
 
 ## Release Notes
 
