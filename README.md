@@ -49,31 +49,6 @@ words = num2words(150, lang='hi', variations=True)
 | ur           | Urdu                      |
 
 
-iso_codes = {
-    'Assamese': 'as',
-    'Bengali': 'bn',
-    'Bodo': 'brx',
-    'Dogri': 'doi',
-    'Gujarati': 'gu',
-    'Hindi': 'hi',
-    'Kannada': 'kn',
-    'Kashmiri': 'ks',
-    'Konkani': 'kok',
-    'Maithili': 'mai', 
-    'Malayalam': 'ml',
-    'Manipuri': 'mni',
-    'Marathi': 'mr',
-    'Nepali': 'ne',
-    'Odia': 'or',
-    'Punjabi': 'pa',
-    'Sanskrit': 'sa',
-    'Santali': 'sat', 
-    'Sindhi': 'sd',
-    'Tamil': 'ta',
-    'Telugu': 'te',
-    'Urdu': 'ur'
-}
-
 ## Release Notes
 
 This package contains work on converting numbers to words. The contents of this package can also be downloaded from our [GitHub repo.](https://github.com/AI4Bharat/indic-numtowords)
