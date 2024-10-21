@@ -1,6 +1,6 @@
 from indic_numtowords.sat.data.nums import DIRECT_DICT
-from indic_numtowords.sat.data.nums import VARIATIONS_DICT
 from indic_numtowords.sat.data.nums import NUMBER_SCALE_DICT
+from indic_numtowords.sat.data.nums import VARIATIONS_DICT
 from indic_numtowords.sat.utils import combine
 
 def convert_to_text(number_str: str, index: int, number_len: int) -> list[str]:

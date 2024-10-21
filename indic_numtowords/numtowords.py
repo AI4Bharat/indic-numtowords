@@ -32,29 +32,49 @@ from indic_numtowords.urd.data.user_variations import variations as ur_variation
 from indic_numtowords.doi.data.nums import DIRECT_DICT as doi_direct_dict
 from indic_numtowords.sat.data.nums import DIRECT_DICT as sat_direct_dict
 from indic_numtowords.mai.data.nums import DIRECT_DICT as mai_direct_dict
-from indic_numtowords.sd.data.nums import DIRECT_DICT as sd_direct_dict
+from indic_numtowords.sin.data.nums import DIRECT_DICT as sd_direct_dict
 from indic_numtowords.brx.data.nums import DIRECT_DICT as brx_direct_dict
+from indic_numtowords.nep.data.nums import DIRECT_DICT as ne_direct_dict
+from indic_numtowords.mni.data.nums import DIRECT_DICT as mni_direct_dict
+from indic_numtowords.kok.data.nums import DIRECT_DICT as kok_direct_dict
+from indic_numtowords.kas.data.nums import DIRECT_DICT as kas_direct_dict
+from indic_numtowords.san.data.nums import DIRECT_DICT as san_direct_dict
 
 from indic_numtowords.doi.data.nums import EXCEPTIONS_DICT as doi_exceptions_dict
 from indic_numtowords.sat.data.nums import EXCEPTIONS_DICT as sat_exceptions_dict
 from indic_numtowords.mai.data.nums import EXCEPTIONS_DICT as mai_exceptions_dict
-from indic_numtowords.sd.data.nums import EXCEPTIONS_DICT as sd_exceptions_dict
+from indic_numtowords.sin.data.nums import EXCEPTIONS_DICT as sd_exceptions_dict
 from indic_numtowords.brx.data.nums import EXCEPTIONS_DICT as brx_exceptions_dict
+from indic_numtowords.nep.data.nums import EXCEPTIONS_DICT as ne_exceptions_dict
+from indic_numtowords.mni.data.nums import EXCEPTIONS_DICT as mni_exceptions_dict
+from indic_numtowords.kok.data.nums import EXCEPTIONS_DICT as kok_exceptions_dict
+from indic_numtowords.kas.data.nums import EXCEPTIONS_DICT as kas_exceptions_dict
+from indic_numtowords.san.data.nums import EXCEPTIONS_DICT as san_exceptions_dict
 
 from indic_numtowords.doi.utils import split_number as doi_split_number
 from indic_numtowords.sat.utils import split_number as sat_split_number
 from indic_numtowords.mai.utils import split_number as mai_split_number
-from indic_numtowords.sd.utils import split_number as sd_split_number
+from indic_numtowords.sin.utils import split_number as sd_split_number
 from indic_numtowords.brx.utils import split_number as brx_split_number
+from indic_numtowords.nep.utils import split_number as ne_split_number
+from indic_numtowords.mni.utils import split_number as mni_split_number
+from indic_numtowords.kok.utils import split_number as kok_split_number
+from indic_numtowords.kas.utils import split_number as kas_split_number
+from indic_numtowords.san.utils import split_number as san_split_number
 
 from indic_numtowords.doi.cardinal import process_text as doi_process_text
 from indic_numtowords.sat.cardinal import process_text as sat_process_text
 from indic_numtowords.mai.cardinal import process_text as mai_process_text
-from indic_numtowords.sd.cardinal import process_text as sd_process_text
+from indic_numtowords.sin.cardinal import process_text as sd_process_text
 from indic_numtowords.brx.cardinal import process_text as brx_process_text
+from indic_numtowords.nep.cardinal import process_text as ne_process_text
+from indic_numtowords.mni.cardinal import process_text as mni_process_text
+from indic_numtowords.kok.cardinal import process_text as kok_process_text
+from indic_numtowords.kas.cardinal import process_text as kas_process_text
+from indic_numtowords.san.cardinal import process_text as san_process_text
 
 supported_langs = ('as', 'bn', 'en', 'gu', 'hi', 'ml', 'mr', 'or', 'pa', 'ta', 'te', 'kn', 'ur')
-extended_supported_langs = ('doi', 'sat', 'mai', 'sd', 'brx')
+extended_supported_langs = ('doi', 'sat', 'mai', 'sd', 'brx', 'ne', 'mni', 'kok', 'kas', 'san')
 
 lang_func_dict = {
     'as': as_convert,
@@ -93,7 +113,12 @@ direct_dict_mapping = {
     'sat': sat_direct_dict,
     'mai': mai_direct_dict,
     'sd': sd_direct_dict,
-    'brx': brx_direct_dict
+    'brx': brx_direct_dict,
+    'ne': ne_direct_dict,
+    'mni': mni_direct_dict,
+    'kok': kok_direct_dict,
+    'kas': kas_direct_dict,
+    'san': san_direct_dict
 }
 
 exceptions_dict_mapping = {
@@ -101,7 +126,12 @@ exceptions_dict_mapping = {
     'sat': sat_exceptions_dict,
     'mai': mai_exceptions_dict,
     'sd': sd_exceptions_dict,
-    'brx': brx_exceptions_dict
+    'brx': brx_exceptions_dict,
+    'ne': ne_exceptions_dict,
+    'mni': mni_exceptions_dict,
+    'kok': kok_exceptions_dict,
+    'kas': kas_exceptions_dict,
+    'san': san_exceptions_dict
 }
 
 split_number_mapping = {
@@ -109,7 +139,12 @@ split_number_mapping = {
     'sat': sat_split_number,
     'mai': mai_split_number,
     'sd': sd_split_number,
-    'brx': brx_split_number
+    'brx': brx_split_number,
+    'ne': ne_split_number,
+    'mni': mni_split_number,
+    'kok': kok_split_number,
+    'kas': kas_split_number,
+    'san': san_split_number
 }
 
 process_text_mapping = {
@@ -117,7 +152,12 @@ process_text_mapping = {
     'sat': sat_process_text,
     'mai': mai_process_text,
     'sd': sd_process_text,
-    'brx': brx_process_text
+    'brx': brx_process_text,
+    'ne': ne_process_text,
+    'mni': mni_process_text,
+    'kok': kok_process_text,
+    'kas': kas_process_text,
+    'san': san_process_text
 }
 
 def num2words(num, lang = 'en', variations = False, split=False, script=False):
@@ -160,25 +200,34 @@ def num2words_extended(number: int | str, lang: str, variations: bool = False, s
 
     number_str = str(number).lstrip('0') or '0'
 
-    if lang in ('sat', 'brx'):
+    if lang in ('sat', 'brx', 'mni'):
         extended = len(number_str) > 9
+    elif lang == 'kas':
+        extended = len(number_str) > (13 if script else 9)
     else:
         extended = len(number_str) > (19 if script else 9)
-    
+
     if extended or split:
         return " ".join(direct_dict_mapping[lang][digit][0] for digit in (number if split else number_str))
 
     numbers = split_number_mapping[lang](number_str)
     converted_text = []
 
-    for index, num in enumerate(numbers):
-      converted_text = process_text_mapping[lang](num, converted_text, index, len(number_str))
+    for index, num in enumerate(numbers if lang != 'san' else reversed(numbers)):
+        index = len(numbers) - 1 - index if lang == 'san' else index
+        converted_text = process_text_mapping[lang](num, converted_text, index, len(number_str))
 
     exceptions = exceptions_dict_mapping[lang].get(number_str, [])
-    final_text = [re.sub(r'[\u200c\u200b]', '', i) for i in converted_text] + exceptions
 
-    return final_text if variations else final_text[0]
+    result_text = (
+        exceptions + [re.sub(r'[\u200c\u200b]', '', i) for i in converted_text]
+        if lang == "kas"
+        else [re.sub(r'[\u200c\u200b]', '', i) for i in converted_text] + exceptions
+    )
 
+    idx = -1 if lang == 'kas' else 0
+
+    return result_text if variations else result_text[idx]
 
 def add_variation(num, word, lang):
     user_variation_file = user_variation_file_map[lang]
@@ -203,7 +252,6 @@ def add_variation(num, word, lang):
             line += '\n'
             f.write(line)
 
-
 def get_variations(num, lang):
     user_variation_dict = user_variation_file_map[lang]
 
@@ -211,3 +259,4 @@ def get_variations(num, lang):
         return set(user_variation_dict[int(num)])
     else:
         return set()
+

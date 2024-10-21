@@ -1,6 +1,6 @@
 from indic_numtowords.brx.data.nums import DIRECT_DICT
-from indic_numtowords.brx.data.nums import VARIATIONS_DICT
 from indic_numtowords.brx.data.nums import NUMBER_SCALE_DICT
+from indic_numtowords.brx.data.nums import VARIATIONS_DICT
 from indic_numtowords.brx.utils import combine
 
 def convert_to_text(number_str: str, number_len: int) -> list[str]:
