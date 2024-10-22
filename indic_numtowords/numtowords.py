@@ -74,7 +74,7 @@ from indic_numtowords.kas.cardinal import process_text as ks_process_text
 from indic_numtowords.san.cardinal import process_text as sa_process_text
 
 supported_langs = ('as', 'bn', 'en', 'gu', 'hi', 'ml', 'mr', 'or', 'pa', 'ta', 'te', 'kn', 'ur')
-extended_supported_langs = ('doi', 'sat', 'mai', 'sd', 'brx', 'ne', 'mni', 'kok', 'kas', 'san')
+extended_supported_langs = ('doi', 'sat', 'mai', 'sd', 'brx', 'ne', 'mni', 'kok', 'ks', 'sa')
 
 lang_func_dict = {
     'as': as_convert,
@@ -204,6 +204,8 @@ def num2words_extended(number: int | str, lang: str, variations: bool = False, s
         extended = len(number_str) > 9
     elif lang == 'ks':
         extended = len(number_str) > (13 if script else 9)
+    elif lang == 'sa':
+        extended = len(number_str) > (18 if script else 9)
     else:
         extended = len(number_str) > (19 if script else 9)
 
