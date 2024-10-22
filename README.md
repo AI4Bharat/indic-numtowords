@@ -18,7 +18,6 @@ words = num2words(38, lang='ta', variations=False)
 
 words = num2words(150, lang='hi', variations=True)
 #output: ['एक सौ पचास', 'डेढ़ सौ'] 
-
 ```
 
 ## Supported Languages
