@@ -52,7 +52,7 @@ def process_text(number_str: str, texts: list[str], index: int, number_len: int)
     if not isinstance(number_str, str) or not isinstance(index, int):
         raise ValueError("Invalid input type")
 
-    if number_str in ['00', '000']:
+    if number_str in {'00', '000'}:
         return texts
 
     if index == 0 and number_str == '0':

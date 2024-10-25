@@ -161,12 +161,23 @@ process_text_mapping = {
 }
 
 def num2words(number, lang = 'en', variations = False, split=False, script=False):
+    if isinstance(number, str):
+        number = number.strip().replace(',', '')
+        if not number.isdigit():
+            raise ValueError("Input string must be a valid number")
+    
     if lang in extended_supported_langs:
-        return num2words_extended(number, lang=lang, variations=variations, split=split, script=script)
+        return num2words_extended(number, lang=lang, variations=variations, split=split)
 
     if lang not in supported_langs:
         raise ValueError(f"Language not supported. Please check the language code.")
     
+    number_str = str(number)
+    extended = len(number_str) > 9
+
+    if extended or split:
+        return " ".join(lang_func_dict[lang](digit)[0] for digit in number)
+
     results = lang_func_dict[lang](number)
     if variations == False:
         return results[0]
@@ -175,7 +186,7 @@ def num2words(number, lang = 'en', variations = False, split=False, script=False
     results = [re.sub(r"[\u200c\u200b]", "", line) for line in results]
     return results
 
-def num2words_extended(number: int | str, lang: str, variations: bool = False, split: bool = False, script: bool = False) -> str | list:
+def num2words_extended(number: int | str, lang: str, variations: bool = False, split: bool = False) -> str | list:
     """
     Convert a number to its textual representation in a specified Indian language.
 
@@ -184,7 +195,6 @@ def num2words_extended(number: int | str, lang: str, variations: bool = False, s
         lang (str): The language code representing the target Indian language for conversion.
         variations (bool, optional): Returns a list of possible textual variations if set to True. Defaults to False.
         split (bool, optional): Converts each digit separately into its word form when set to True. Defaults to False.
-        script (bool, optional): Processes the number in a specific script format if set to True. Defaults to False.
 
     Returns:
         str: The textual representation of the number if `variations` is False.
@@ -193,21 +203,9 @@ def num2words_extended(number: int | str, lang: str, variations: bool = False, s
     Raises:
         ValueError: If the input is not a valid number.
     """
-    if isinstance(number, str):
-        number = number.strip().replace(',', '')
-        if not number.isdigit():
-            raise ValueError("Input string must be a valid number")
-
     number_str = str(number).lstrip('0') or '0'
 
-    if lang in ('sat', 'brx', 'mni'):
-        extended = len(number_str) > 9
-    elif lang == 'ks':
-        extended = len(number_str) > (13 if script else 9)
-    elif lang == 'sa':
-        extended = len(number_str) > (18 if script else 9)
-    else:
-        extended = len(number_str) > (19 if script else 9)
+    extended = len(number_str) > 9
 
     if extended or split:
         return " ".join(direct_dict_mapping[lang][digit][0] for digit in (number if split else number_str))
