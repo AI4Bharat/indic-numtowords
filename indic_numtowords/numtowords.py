@@ -160,7 +160,7 @@ process_text_mapping = {
     'sa': sa_process_text
 }
 
-def num2words(number, lang = 'en', variations = False, split=False, script=False):
+def num2words(number, lang = 'en', variations = False, split=False):
     if isinstance(number, str):
         number = number.strip().replace(',', '')
         if not number.isdigit():
@@ -259,4 +259,3 @@ def get_variations(num, lang):
         return set(user_variation_dict[int(num)])
     else:
         return set()
-
