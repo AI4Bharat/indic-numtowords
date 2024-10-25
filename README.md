@@ -34,11 +34,6 @@ from indic_numtowords import num2words
   words = num2words(420, lang='doi', split=True)
   #output: 'चार दो सिफर'
   ```
-4. Uses a script format:
-  ```ssh
-  words = num2words(10000000000000, lang='ne', script=True)
-  #output: 'एक निल'
-  ```
 
 ## Parameters
 The `num2words` function accepts the following parameters:
@@ -46,7 +41,6 @@ The `num2words` function accepts the following parameters:
 - **`number`**: (int) The non-negative integer to convert into words.
 - **`lang`**: (str) The ISO code for the target language. Defaults to English (`en`).
 - **`variations`**: (bool, optional) If set to `True`, returns variations of the number.
-- **`script`**: (str, optional) If set to `True`, returns the script format for processing the number.
 - **`split`**: (bool, optional) If `True`, converts each digit separately into its word form.
 
 ## Supported Languages
@@ -74,8 +68,6 @@ The following languages are supported by the `num2words` module:
 - **`ta`**: Tamil
 - **`te`**: Telugu
 - **`ur`**: Urdu
-
-
 
 ## Release Notes
 
