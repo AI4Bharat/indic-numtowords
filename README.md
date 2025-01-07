@@ -64,6 +64,7 @@ The following languages are supported by the `num2words` module:
 - **`or`**: Odia
 - **`pa`**: Punjabi
 - **`sa`**: Sanskrit
+- **`sat`**: Santali
 - **`sd`**: Sindhi
 - **`ta`**: Tamil
 - **`te`**: Telugu
