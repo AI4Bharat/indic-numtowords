@@ -76,4 +76,4 @@ def convert(num):
         word_list = combine(lis1, lis2)
 
     final_word_list.extend(word_list)
-    return [l.strip() for l in final_word_list]
+    return [word.strip() for word in final_word_list]

@@ -77,4 +77,4 @@ def convert(num):
                     temp_list.append(j)
         word_list = temp_list
 
-    return [l.strip() for l in word_list]
+    return [word.strip() for word in word_list]

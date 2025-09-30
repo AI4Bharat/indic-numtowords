@@ -1,7 +1,6 @@
 from indic_numtowords.pun.data.nums import exceptions_dict
 from indic_numtowords.pun.data.nums import direct_dict
 from indic_numtowords.pun.data.nums import higher_dict
-from indic_numtowords.pun.data.nums import hundreds_dict
 
 from indic_numtowords.pun.utils import combine
 
@@ -79,4 +78,4 @@ def convert(num):
         word_list = combine(word_list, temp_str)
 
     final_word_list = word_list + final_word_list
-    return [l.strip() for l in final_word_list]
+    return [word.strip() for word in final_word_list]

@@ -11,7 +11,6 @@ def convert(num):
         return exceptions_dict[num_str]
     num_str = num_str.lstrip("0")
     n = len(num_str)
-    word = ""
     final_word_list = []
     word_list = [""]
 
@@ -82,4 +81,4 @@ def convert(num):
         word_list = combine(word_list, temp_str)
 
     final_word_list = word_list + final_word_list
-    return [l.strip() for l in final_word_list]
+    return [word.strip() for word in final_word_list]

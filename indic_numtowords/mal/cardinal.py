@@ -113,4 +113,4 @@ def convert(num):
         word_list = combine(word_list, temp_str)
 
     final_word_list = word_list + final_word_list
-    return [l.strip() for l in final_word_list]
+    return [word.strip() for word in final_word_list]

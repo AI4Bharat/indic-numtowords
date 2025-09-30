@@ -7,7 +7,7 @@ with open('README.md', encoding="utf-8") as f:
 # This call to setup() does all the work
 setup(
     name="indic_numtowords",
-    version='1.0.1',
+    version='1.0.2',
     description="A module to convert numbers to words for Indian languages and English.",
     long_description=long_description,
     long_description_content_type="text/markdown",

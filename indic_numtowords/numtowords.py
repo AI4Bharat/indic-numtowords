@@ -196,7 +196,7 @@ def num2words(number, lang="en", variations=False, split=False):
         return num2words_extended(number, lang=lang, variations=variations, split=split)
 
     if lang not in supported_langs:
-        raise ValueError(f"Language not supported. Please check the language code.")
+        raise ValueError("Language not supported. Please check the language code.")
 
     number_str = str(number)
     extended = len(number_str) > 9
@@ -205,7 +205,7 @@ def num2words(number, lang="en", variations=False, split=False):
         return " ".join(lang_func_dict[lang](digit)[0] for digit in number)
 
     results = lang_func_dict[lang](number)
-    if variations == False:
+    if not variations:
         return results[0]
     variations = list(set(get_variations(number, lang)))
     results.extend(variations)

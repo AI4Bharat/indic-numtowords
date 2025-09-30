@@ -1,7 +1,6 @@
 from indic_numtowords.tel.data.nums import exceptions_dict
 from indic_numtowords.tel.data.nums import direct_dict
 from indic_numtowords.tel.data.nums import higher_dict
-from indic_numtowords.tel.data.nums import hundreds_dict
 
 from indic_numtowords.tel.utils import combine
 
@@ -45,7 +44,7 @@ def convert(num):
             num_str = num_str.lstrip("0")
             n = len(num_str)
             if n == 0:
-                word_list = [l + "ు" for l in word_list]
+                word_list = [word + "ు" for word in word_list]
 
     if n == 7 or n == 6:
         # lakh case
@@ -71,7 +70,7 @@ def convert(num):
             num_str = num_str.lstrip("0")
             n = len(num_str)
             if n == 0:
-                word_list = [l + "ు" for l in word_list]
+                word_list = [word + "ు" for word in word_list]
 
     if n == 5 or n == 4:
         # thousands case
@@ -99,7 +98,7 @@ def convert(num):
             num_str = num_str.lstrip("0")
             n = len(num_str)
             if n == 0:
-                word_list = [l + "ు" for l in word_list]
+                word_list = [word + "ు" for word in word_list]
 
     if n == 3:
         # hundreds case
@@ -127,7 +126,7 @@ def convert(num):
             num_str = num_str.lstrip("0")
             n = len(num_str)
             if n == 0:
-                word_list = [l + "ు" for l in word_list]
+                word_list = [word + "ు" for word in word_list]
 
     if n == 2 or n == 1:
         # tens case
@@ -135,4 +134,4 @@ def convert(num):
         word_list = combine(word_list, temp_str)
 
     final_word_list = word_list + final_word_list
-    return [l.strip() for l in final_word_list]
+    return [word.strip() for word in final_word_list]
