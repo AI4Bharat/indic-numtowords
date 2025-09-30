@@ -1,4 +1,4 @@
-def combine(lis1, lis2, seperator = " "):
+def combine(lis1, lis2, seperator=" "):
     inter_list = []
     for i in lis1:
         for j in lis2:
