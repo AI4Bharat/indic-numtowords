@@ -185,13 +185,69 @@ process_text_mapping = {
     "sa": sa_process_text,
 }
 
+# Decimal point words for each language
+decimal_point_words = {
+    "en": "point",
+    "hi": "दशमलव",
+    "bn": "দশমিক",
+    "ta": "புள்ளி",
+    "te": "పాయింట్",
+    "mr": "दशांश",
+    "gu": "દશાંશ",
+    "kn": "ದಶಮಾಂಶ",
+    "ml": "പോയിന്റ്",
+    "pa": "ਦਸ਼ਮਲਵ",
+    "or": "ଦଶମିକ",
+    "as": "দশমিক",
+    "ur": "اعشاریہ",
+    "ne": "दशमलव",
+    "sa": "दशमलव",
+    "kok": "दशांश",
+    "mai": "दशमलव",
+    "doi": "दशमलव",
+    "sd": "ڏهاڪو",
+    "brx": "दशमलव",
+    "mni": "দশমিক",
+    "ks": "دَشمَلَو",
+    "sat": "दशमलव",
+}
 
-def num2words(number, lang="en", variations=False, split=False):
-    if isinstance(number, str):
-        number = number.strip().replace(",", "")
-        if not number.isdigit():
-            raise ValueError("Input string must be a valid number")
+# Indian Rupee currency terms for each language
+# Format: {"unit": "rupees word", "subunit": "paise word", "connector": "and word"}
+currency_formats = {
+    "INR": {
+        "en": {"unit": "rupees", "subunit": "paise", "connector": "and"},
+        "hi": {"unit": "रुपये", "subunit": "पैसे", "connector": "और"},
+        "bn": {"unit": "টাকা", "subunit": "পয়সা", "connector": "এবং"},
+        "ta": {"unit": "ரூபாய்", "subunit": "பைசா", "connector": "மற்றும்"},
+        "te": {"unit": "రూపాయలు", "subunit": "పైసలు", "connector": "మరియు"},
+        "mr": {"unit": "रुपये", "subunit": "पैसे", "connector": "आणि"},
+        "gu": {"unit": "રૂપિયા", "subunit": "પૈસા", "connector": "અને"},
+        "kn": {"unit": "ರೂಪಾಯಿ", "subunit": "ಪೈಸೆ", "connector": "ಮತ್ತು"},
+        "ml": {"unit": "രൂപ", "subunit": "പൈസ", "connector": "ഉം"},
+        "pa": {"unit": "ਰੁਪਏ", "subunit": "ਪੈਸੇ", "connector": "ਅਤੇ"},
+        "or": {"unit": "ଟଙ୍କା", "subunit": "ପଇସା", "connector": "ଏବଂ"},
+        "as": {"unit": "টকা", "subunit": "পইচা", "connector": "আৰু"},
+        "ur": {"unit": "روپے", "subunit": "پیسے", "connector": "اور"},
+        "ne": {"unit": "रुपैयाँ", "subunit": "पैसा", "connector": "र"},
+        "sa": {"unit": "रूप्यकाणि", "subunit": "पैसाः", "connector": "च"},
+        "kok": {"unit": "रुपया", "subunit": "पैसे", "connector": "आनी"},
+        "mai": {"unit": "टाका", "subunit": "पैसा", "connector": "आ"},
+        "doi": {"unit": "रुपये", "subunit": "पैसे", "connector": "ते"},
+        "sd": {"unit": "رپيا", "subunit": "پئسا", "connector": "۽"},
+        "brx": {"unit": "रां", "subunit": "पैसा", "connector": "आरो"},
+        "mni": {"unit": "রুপি", "subunit": "পয়সা", "connector": "অমসুং"},
+        "ks": {"unit": "رۄپیہ", "subunit": "پیسہ", "connector": "تہٕ"},
+        "sat": {"unit": "टाका", "subunit": "पैसा", "connector": "आर"},
+    }
+}
 
+
+def _convert_integer(number, lang, variations=False, split=False):
+    """
+    Internal helper to convert an integer to words.
+    This extracts the core integer conversion logic from num2words.
+    """
     if lang in extended_supported_langs:
         return num2words_extended(number, lang=lang, variations=variations, split=split)
 
@@ -202,15 +258,150 @@ def num2words(number, lang="en", variations=False, split=False):
     extended = len(number_str) > 9
 
     if extended or split:
-        return " ".join(lang_func_dict[lang](digit)[0] for digit in number)
+        return " ".join(lang_func_dict[lang](digit)[0] for digit in str(number))
 
     results = lang_func_dict[lang](number)
     if not variations:
         return results[0]
-    variations = list(set(get_variations(number, lang)))
-    results.extend(variations)
+    variation_list = list(set(get_variations(number, lang)))
+    results.extend(variation_list)
     results = [re.sub(r"[\u200c\u200b]", "", line) for line in results]
     return results
+
+
+def num2words(number, lang="en", variations=False, split=False, currency=None):
+    """
+    Convert a number to its textual representation in a specified language.
+
+    Args:
+        number (int, float, or str): The number to convert.
+        lang (str): The ISO code for the target language. Defaults to English ('en').
+        variations (bool, optional): If True, returns variations of the number.
+        split (bool, optional): If True, converts each digit separately.
+        currency (str, optional): Currency code (e.g., 'INR') for currency formatting.
+            When provided, formats the number as currency (e.g., "forty-two rupees and fifty paise").
+
+    Returns:
+        str: The textual representation of the number.
+        list[str]: A list of variations if `variations` is True.
+
+    Examples:
+        >>> num2words(42.5, lang='en')
+        'forty-two point five'
+        >>> num2words(42.50, lang='en', currency='INR')
+        'forty-two rupees and fifty paise'
+        >>> num2words(100.25, lang='hi', currency='INR')
+        'एक सौ रुपये और पच्चीस पैसे'
+    """
+    # Validate language
+    all_supported = supported_langs + extended_supported_langs
+    if lang not in all_supported:
+        raise ValueError("Language not supported. Please check the language code.")
+
+    # Handle string input - normalize and check for decimal
+    if isinstance(number, str):
+        number = number.strip().replace(",", "")
+        # Check if it's a decimal number
+        if "." in number:
+            try:
+                number = float(number)
+            except ValueError:
+                raise ValueError("Input string must be a valid number")
+        elif number.lstrip("-").isdigit():
+            number = int(number)
+        else:
+            raise ValueError("Input string must be a valid number")
+
+    # Handle float/decimal numbers
+    if isinstance(number, float):
+        return _convert_decimal(number, lang, currency)
+
+    # Handle currency for integer amounts (e.g., 100 rupees and zero paise)
+    if currency is not None:
+        return _convert_decimal(float(number), lang, currency)
+
+    # Original integer conversion logic
+    return _convert_integer(number, lang, variations, split)
+
+
+def _convert_decimal(number, lang, currency=None):
+    """
+    Convert a decimal number to words.
+
+    Args:
+        number (float): The decimal number to convert.
+        lang (str): The language code.
+        currency (str, optional): Currency code for currency formatting.
+
+    Returns:
+        str: The textual representation of the decimal number.
+    """
+    # Convert to string to handle precision
+    number_str = str(number)
+
+    # Handle negative numbers
+    is_negative = number < 0
+    if is_negative:
+        number_str = number_str[1:]  # Remove minus sign
+
+    # Split into whole and fractional parts
+    if "." in number_str:
+        whole_str, frac_str = number_str.split(".")
+    else:
+        whole_str, frac_str = number_str, "0"
+
+    # Convert whole part
+    whole_int = int(whole_str) if whole_str else 0
+    whole_words = _convert_integer(whole_int, lang)
+
+    # For currency mode
+    if currency is not None:
+        if currency not in currency_formats:
+            raise ValueError(f"Currency '{currency}' is not supported. Supported: {list(currency_formats.keys())}")
+
+        currency_info = currency_formats[currency].get(lang)
+        if currency_info is None:
+            raise ValueError(f"Currency '{currency}' is not available for language '{lang}'")
+
+        # For INR, paise is 1/100 of rupee, so we need 2 decimal places
+        # Pad or truncate fractional part to 2 digits for paise
+        frac_str = frac_str[:2].ljust(2, "0")
+        frac_int = int(frac_str)
+
+        frac_words = _convert_integer(frac_int, lang) if frac_int > 0 else None
+
+        # Build currency string
+        result = f"{whole_words} {currency_info['unit']}"
+        if frac_words:
+            result += f" {currency_info['connector']} {frac_words} {currency_info['subunit']}"
+
+        if is_negative:
+            # Add negative indicator (minus/negative in the language)
+            negative_words = {"en": "minus", "hi": "ऋण", "bn": "ঋণাত্মক"}
+            negative_word = negative_words.get(lang, "minus")
+            result = f"{negative_word} {result}"
+
+        return result
+
+    # For decimal point mode (non-currency)
+    decimal_word = decimal_point_words.get(lang, "point")
+
+    # Convert fractional part digit by digit
+    frac_digit_words = []
+    for digit in frac_str:
+        digit_word = _convert_integer(int(digit), lang)
+        frac_digit_words.append(digit_word)
+
+    frac_words = " ".join(frac_digit_words)
+
+    result = f"{whole_words} {decimal_word} {frac_words}"
+
+    if is_negative:
+        negative_words = {"en": "minus", "hi": "ऋण", "bn": "ঋণাত্মক"}
+        negative_word = negative_words.get(lang, "minus")
+        result = f"{negative_word} {result}"
+
+    return result
 
 
 def num2words_extended(

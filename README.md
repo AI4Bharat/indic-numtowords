@@ -19,29 +19,59 @@ from indic_numtowords import num2words
 
 ## Usage
 
-1. Converts numbers into words in various languages:
-  ```ssh
-  words = num2words(38, lang='ta')
-  #output: 'முப்பத்து எட்டு'
-  ```
-2. Returns variations for numbers:
-  ```ssh
-  words = num2words(150, lang='hi', variations=True)
-  #output: ['एक सौ पचास', 'डेढ़ सौ'] 
-  ```
-3. Converts each digit separately:
-  ```ssh
-  words = num2words(420, lang='doi', split=True)
-  #output: 'चार दो सिफर'
-  ```
+### Basic Integer Conversion
+
+```python
+words = num2words(38, lang='ta')
+# Output: 'முப்பத்து எட்டு'
+```
+
+### Decimal Numbers (New in v1.1.0)
+
+```python
+words = num2words(42.5, lang='en')
+# Output: 'forty two point five'
+
+words = num2words(3.14, lang='hi')
+# Output: 'तीन दशमलव एक चार'
+```
+
+### Currency Formatting (New in v1.1.0)
+
+```python
+words = num2words(42.50, lang='en', currency='INR')
+# Output: 'forty two rupees and fifty paise'
+
+words = num2words(100.25, lang='hi', currency='INR')
+# Output: 'एक सौ रुपये और पच्चीस पैसे'
+
+words = num2words(50.75, lang='ta', currency='INR')
+# Output: 'ஐம்பது ரூபாய் மற்றும் எழுபத்து ஐந்து பைசா'
+```
+
+### Variations
+
+```python
+words = num2words(150, lang='hi', variations=True)
+# Output: ['एक सौ पचास', 'डेढ़ सौ']
+```
+
+### Split Digits
+
+```python
+words = num2words(420, lang='doi', split=True)
+# Output: 'चार दो सिफर'
+```
 
 ## Parameters
+
 The `num2words` function accepts the following parameters:
 
-- **`number`**: (int) The non-negative integer to convert into words.
+- **`number`**: (int, float, or str) The number to convert into words. Supports integers, decimals, and string representations.
 - **`lang`**: (str) The ISO code for the target language. Defaults to English (`en`).
 - **`variations`**: (bool, optional) If set to `True`, returns variations of the number.
 - **`split`**: (bool, optional) If `True`, converts each digit separately into its word form.
+- **`currency`**: (str, optional) Currency code for currency formatting. Currently supports `'INR'` (Indian Rupee).
 
 ## Supported Languages
 The following languages are supported by the `num2words` module:
