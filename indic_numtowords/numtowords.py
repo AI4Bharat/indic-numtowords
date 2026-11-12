@@ -202,11 +202,11 @@ def num2words(number, lang="en", variations=False, split=False):
     extended = len(number_str) > 9
 
     if extended or split:
-        return " ".join(lang_func_dict[lang](digit)[0] for digit in number)
+        return " ".join(lang_func_dict[lang](digit)[0] for digit in number_str)
 
     results = lang_func_dict[lang](number)
     if not variations:
-        return results[0]
+        return re.sub(r"[\u200c\u200b]", "", results[0])
     variations = list(set(get_variations(number, lang)))
     results.extend(variations)
     results = [re.sub(r"[\u200c\u200b]", "", line) for line in results]
@@ -239,7 +239,7 @@ def num2words_extended(
     if extended or split:
         return " ".join(
             direct_dict_mapping[lang][digit][0]
-            for digit in (number if split else number_str)
+            for digit in (str(number) if split else number_str)
         )
 
     numbers = split_number_mapping[lang](number_str)
