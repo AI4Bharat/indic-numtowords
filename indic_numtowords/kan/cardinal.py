@@ -126,19 +126,21 @@ def convert(num):
                 word[z] = word[z][:-1]
             for x in range(0, len(temp_str)):
                 for y in range(len(word)):
-                    if int(num_str) > 10 and int(num_str) < 20:
+                    # Lower bounds are inclusive so exact tens (110, 150, 290 ...)
+                    # get their suffix too; 101-109 come from exceptions_dict.
+                    if 10 <= int(num_str) < 20:
                         word[y] += "ರ" + temp_str[x] + " "
-                    elif int(num_str) > 20 and int(num_str) < 30:
+                    elif 20 <= int(num_str) < 30:
                         word[y] += "ರಿ" + temp_str[x][1:] + " "
-                    elif int(num_str) > 30 and int(num_str) < 50:
+                    elif 30 <= int(num_str) < 50:
                         word[y] += "ರ" + temp_str[x] + " "
-                    elif int(num_str) > 50 and int(num_str) < 60:
+                    elif 50 <= int(num_str) < 60:
                         word[y] += "ರೈ" + temp_str[x][1:] + " "
-                    elif int(num_str) > 60 and int(num_str) < 70:
+                    elif 60 <= int(num_str) < 70:
                         word[y] += "ರ" + temp_str[x][1:] + " "
-                    elif int(num_str) > 70 and int(num_str) < 90:
+                    elif 70 <= int(num_str) < 90:
                         word[y] += "ರೆ" + temp_str[x][1:] + " "
-                    elif int(num_str) > 90 and int(num_str) < 100:
+                    elif 90 <= int(num_str) < 100:
                         word[y] += "ರ" + temp_str[x] + " "
         else:
             if len(word) == 0:
