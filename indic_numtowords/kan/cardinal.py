@@ -153,4 +153,8 @@ def convert(num):
 
     for w in range(len(word)):
         word[w] = word[w].strip()
+        # "ಸಾವಿರದ" / "ಲಕ್ಷದ" join to a following number; when nothing follows
+        # (1000, 2,00,000, 1,05,00,000) the number ends in "ಸಾವಿರ" / "ಲಕ್ಷ".
+        if word[w].endswith((higher_dict[3], higher_dict[5])):
+            word[w] = word[w][:-1]
     return word
