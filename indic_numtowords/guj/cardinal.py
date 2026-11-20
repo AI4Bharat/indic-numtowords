@@ -1,6 +1,7 @@
 from indic_numtowords.guj.data.nums import exceptions_dict
 from indic_numtowords.guj.data.nums import direct_dict
 from indic_numtowords.guj.data.nums import higher_dict
+from indic_numtowords.guj.data.nums import variations_dict
 
 from indic_numtowords.guj.utils import combine
 
@@ -63,8 +64,12 @@ def convert(num):
         else:
             lis1 = direct_dict[temp_num]
             lis2 = higher_dict[2]
-            inter_list = combine(lis1, lis2)
+            # spaced form first ("ત્રણ સો") keeps the default output unchanged;
+            # the joined written form ("ત્રણસો") is added as a variation
+            inter_list = combine(lis1, lis2) + combine(lis1, lis2, seperator="")
 
+        if num_str in variations_dict:
+            final_word_list.extend(combine(word_list, variations_dict[num_str]))
         word_list = combine(word_list, inter_list)
         num_str = num_str[1:]
         num_str = num_str.lstrip("0")
